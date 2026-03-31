@@ -17,17 +17,27 @@ import NotFound from "@/pages/not-found";
 import PrivateWealthPage from "@/pages/PrivateWealthPage";
 import EntrepreneurPage from "@/pages/EntrepreneurPage";
 import InsurancePage from "@/pages/InsurancePage";
+import AdminDashboardPage from "@/pages/admin/AdminDashboardPage";
+import AdminClientsPage from "@/pages/admin/AdminClientsPage";
+import AdminTransactionsPage from "@/pages/admin/AdminTransactionsPage";
+import AdminAlertsPage from "@/pages/admin/AdminAlertsPage";
+import AdminReportsPage from "@/pages/admin/AdminReportsPage";
+import AdminMessagesPage from "@/pages/admin/AdminMessagesPage";
+import AdminAuditPage from "@/pages/admin/AdminAuditPage";
+import AdminSettingsPage from "@/pages/admin/AdminSettingsPage";
 
 const queryClient = new QueryClient();
 
 function Router() {
   return (
     <Switch>
+      {/* Public */}
       <Route path="/" component={HomePage} />
       <Route path="/connexion" component={LoginPage} />
       <Route path="/gestion-privee" component={PrivateWealthPage} />
       <Route path="/entrepreneur" component={EntrepreneurPage} />
       <Route path="/assurances" component={InsurancePage} />
+      {/* Client space */}
       <Route path="/dashboard" component={DashboardPage} />
       <Route path="/comptes" component={AccountsPage} />
       <Route path="/cartes" component={CardsPage} />
@@ -36,6 +46,15 @@ function Router() {
       <Route path="/documents" component={DocumentsPage} />
       <Route path="/messages" component={MessagesPage} />
       <Route path="/profil" component={ProfilePage} />
+      {/* Admin space */}
+      <Route path="/admin" component={AdminDashboardPage} />
+      <Route path="/admin/clients" component={AdminClientsPage} />
+      <Route path="/admin/transactions" component={AdminTransactionsPage} />
+      <Route path="/admin/alertes" component={AdminAlertsPage} />
+      <Route path="/admin/rapports" component={AdminReportsPage} />
+      <Route path="/admin/messages" component={AdminMessagesPage} />
+      <Route path="/admin/audit" component={AdminAuditPage} />
+      <Route path="/admin/parametres" component={AdminSettingsPage} />
       <Route component={NotFound} />
     </Switch>
   );

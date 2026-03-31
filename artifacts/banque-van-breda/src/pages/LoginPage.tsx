@@ -50,11 +50,18 @@ export default function LoginPage() {
   const handleOtpSubmit = async () => {
     setIsLoading(true);
     await new Promise((r) => setTimeout(r, 600));
-    const success = login(form.getValues("email"), form.getValues("password"));
+    const email = form.getValues("email");
+    const success = login(email, form.getValues("password"));
     setIsLoading(false);
     if (success) {
-      toast({ title: "Connexion réussie", description: "Bienvenue dans votre espace personnel." });
-      setLocation("/dashboard");
+      const isAdmin = email.toLowerCase().includes("admin") || email.toLowerCase() === "admin@vanbreda.be";
+      if (isAdmin) {
+        toast({ title: "Connexion administrateur", description: "Bienvenue dans l'interface d'administration." });
+        setLocation("/admin");
+      } else {
+        toast({ title: "Connexion réussie", description: "Bienvenue dans votre espace personnel." });
+        setLocation("/dashboard");
+      }
     }
   };
 
@@ -213,11 +220,19 @@ export default function LoginPage() {
                 </form>
 
                 <div className="mt-6 pt-5 border-t border-gray-100">
-                  <div className="flex items-center gap-2 bg-blue-50 border border-blue-200 rounded-lg p-3">
-                    <Shield className="w-4 h-4 text-blue-600 shrink-0" />
-                    <p className="text-xs text-blue-700">
-                      <strong>Demo:</strong> Entrez n'importe quel e-mail et mot de passe pour vous connecter.
-                    </p>
+                  <div className="flex flex-col gap-2 bg-blue-50 border border-blue-200 rounded-lg p-3">
+                    <div className="flex items-start gap-2">
+                      <Shield className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
+                      <p className="text-xs text-blue-700">
+                        <strong>Demo espace client :</strong> N'importe quel e-mail + mot de passe.
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <Shield className="w-4 h-4 text-amber-500 shrink-0 mt-0.5" />
+                      <p className="text-xs text-amber-700">
+                        <strong>Demo admin :</strong> Utilisez un e-mail contenant "admin" (ex: admin@vanbreda.be).
+                      </p>
+                    </div>
                   </div>
                 </div>
               </>
