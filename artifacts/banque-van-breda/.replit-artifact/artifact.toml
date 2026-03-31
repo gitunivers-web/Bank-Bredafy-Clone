@@ -1,0 +1,31 @@
+kind = "web"
+previewPath = "/"
+title = "Banque Van Breda"
+version = "1.0.0"
+id = "artifacts/banque-van-breda"
+router = "path"
+
+[[integratedSkills]]
+name = "react-vite"
+version = "1.0.0"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 20248
+
+[services.development]
+run = "pnpm --filter @workspace/banque-van-breda run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/banque-van-breda", "run", "build" ]
+publicDir = "artifacts/banque-van-breda/dist/public"
+serve = "static"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "20248"
+BASE_PATH = "/"
